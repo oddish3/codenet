@@ -1,4 +1,3 @@
-
 # codenet
 
 <!-- badges: start -->
@@ -43,4 +42,33 @@ object_network <- create_object_network(
 ```
 ## Examples
 
-See the inst/examples directory for detailed examples.
+Say we write a function to add two numbers:
+```
+add_numbers <- function(x, y) {
+  return(x + y)
+}
+```
+
+then we write another function that uses this function to calculate a total:
+```
+calculate_sum <- function(numbers) {
+  total <- 0
+  for(i in numbers) {
+    total <- add_numbers(total, i)
+  }
+  return(total)
+}
+```
+
+And then we write another function that uses the `calculate_sum` function:
+```
+process_data <- function(data) {
+  result <- calculate_sum(data)
+  return(list(
+    sum = result,
+    mean = result/length(data)
+  ))
+}
+```
+
+We can easily visualise the dependecies of these functions in the ![Rstudio Viewer Pane](https://github.com/user-attachments/assets/286e09c3-6b08-43a2-b093-257a6e0115b7)
