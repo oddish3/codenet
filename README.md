@@ -3,7 +3,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-A package for visualizing code dependencies and object relationships in R projects.
+A package for visualizing code dependencies and object relationships in R projects, inspired by the functionality provided in the !['assertHE' package](https://github.com/dark-peak-analytics/assertHE).
 
 
 ## Installation
