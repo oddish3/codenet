@@ -53,7 +53,7 @@ plot_enhanced_network <- function(edges, object_types) {
     stop("The edges data frame must contain 'from' and 'to' columns.")
   }
 
-  # Create the network visualization
+  # Create the network visualisation
   network <- visNetwork::visNetwork(nodes, edges) %>%
     visNetwork::visGroups(
       groupname = "function",

@@ -1,6 +1,6 @@
 #' Create Function Network
 #'
-#' Creates a network visualization of function dependencies from R files or R objects
+#' Creates a network visualisation of function dependencies from R files or R objects
 #'
 #' @param source Either a path to R files or a character vector of object names
 #' @param type One of "files" or "objects" indicating the source type

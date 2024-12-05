@@ -71,7 +71,7 @@ identify_dependencies <- function(objects) {
 
 #' Find Object Dependencies
 #'
-#' @param obj Object to analyze
+#' @param obj Object to analyse
 #' @param objects List of available objects
 #' @return Character vector of dependency names
 #' @noRd
@@ -93,7 +93,7 @@ find_object_dependencies <- function(obj, objects) {
 
 #' Find Function Dependencies
 #'
-#' @param func Function to analyze
+#' @param func Function to analyse
 #' @param objects List of available objects
 #' @return Character vector of dependency names
 #' @noRd

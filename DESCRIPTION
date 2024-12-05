@@ -1,8 +1,8 @@
 Package: codenet
-Title: Visualize Code Dependencies
+Title: Visualise Code Dependencies
 Version: 0.1.0
 Authors@R: person("Your Name", role = c("aut", "cre"), email = "your.email@example.com")
-Description: Creates network visualizations of R code dependencies to help understand relationships between functions.
+Description: Creates network visualisations of R code dependencies to help understand relationships between functions.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

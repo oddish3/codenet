@@ -1,6 +1,6 @@
 # File: inst/examples/demo.R
-
-library(codenet)
+devtools::load_all(".")
+devtools::test()
 
 # Create a demo directory with example functions
 demo_dir <- file.path(tempdir(), "codenet_demo")

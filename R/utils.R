@@ -2,7 +2,7 @@
 #'
 #' Extracts function calls from a function body
 #'
-#' @param func Function to analyze
+#' @param func Function to analyse
 #' @param available_funcs Vector of available function names
 #' @return Character vector of called function names
 #' @noRd

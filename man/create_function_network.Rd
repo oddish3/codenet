@@ -21,5 +21,5 @@ create_function_network(
 A visNetwork object representing function dependencies
 }
 \description{
-Creates a network visualization of function dependencies from R files or R objects
+Creates a network visualisation of function dependencies from R files or R objects
 }

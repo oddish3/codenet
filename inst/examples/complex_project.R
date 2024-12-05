@@ -58,7 +58,7 @@ summary.processed_data <- function(object, ...) {
 }
 
 # 4. Function that uses both data and other functions
-analyze_object <- function(obj) {
+analyse_object <- function(obj) {
   if(inherits(obj, "processed_data")) {
     return(summary.processed_data(obj))
   }
@@ -67,14 +67,14 @@ analyze_object <- function(obj) {
 
 # Create test objects
 test_obj <- create_data_object(example_data)
-processed <- analyze_object(test_obj)
+processed <- analyse_object(test_obj)
 
 # Create networks
 function_network <- create_function_network(
   source = c(
     "list_processor", "recursive_list_process", "process_element",
     "scale_number", "clean_string", "create_data_object",
-    "print.processed_data", "summary.processed_data", "analyze_object"
+    "print.processed_data", "summary.processed_data", "analyse_object"
   ),
   type = "objects"
 )
