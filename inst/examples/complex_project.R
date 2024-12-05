@@ -65,12 +65,11 @@ analyze_object <- function(obj) {
   return(list_processor(obj))
 }
 
-# Create the test objects first
+# Create test objects
 test_obj <- create_data_object(example_data)
 processed <- analyze_object(test_obj)
 
-# Now create the networks
-# 1. Create network for functions only
+# Create networks
 function_network <- create_function_network(
   source = c(
     "list_processor", "recursive_list_process", "process_element",
@@ -80,21 +79,19 @@ function_network <- create_function_network(
   type = "objects"
 )
 
-# 2. Create network for all objects including data
 all_objects_network <- create_object_network(
   source = ls(),
   type = "objects",
   object_types = "all"
 )
 
-# 3. Create network for just data objects
 data_network <- create_object_network(
   source = c("example_data", "test_obj", "processed"),
   type = "objects",
   object_types = "data.frames"
 )
 
-# Display the networks
+# Display networks
 function_network
 all_objects_network
 data_network

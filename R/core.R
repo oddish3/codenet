@@ -53,7 +53,15 @@ create_object_network <- function(source,
   type <- match.arg(type)
   object_types <- match.arg(object_types)
 
-  # Get objects and their relationships
+  # Check if all objects exist
+  if (type == "objects") {
+    missing_objects <- source[!sapply(source, exists, envir = env)]
+    if (length(missing_objects) > 0) {
+      stop("The following objects were not found: ",
+        paste(missing_objects, collapse = ", "))
+    }
+  }
+
   objects <- if(type == "files") {
     parse_project_objects(source, object_types)
   } else {
@@ -61,8 +69,7 @@ create_object_network <- function(source,
   }
 
   edges <- identify_dependencies(objects)
-
-  # Create network with object type information
   network <- plot_enhanced_network(edges, objects$types)
   return(network)
 }
+

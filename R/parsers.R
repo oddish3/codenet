@@ -72,16 +72,16 @@ parse_memory_objects <- function(obj_names, object_types, env) {
   # Get object types
   obj_types <- sapply(obj_names, function(x) {
     obj <- get(x, envir = env)
-    if(is.function(obj)) "function"
-    else if(is.data.frame(obj)) "data.frame"
-    else if(is.list(obj)) "list"
+    if (is.function(obj)) "function"
+    else if (is.data.frame(obj)) "data.frame"
+    else if (is.list(obj)) "list"
     else "other"
   })
 
   # Filter based on requested types
   keep <- switch(object_types,
     "functions" = obj_types == "function",
-    "data.frames" = obj_types == "data.frame",
+    "data.frames" = obj_types %in% c("data.frame", "list"),
     "all" = TRUE)
 
   filtered_names <- obj_names[keep]
@@ -89,7 +89,7 @@ parse_memory_objects <- function(obj_names, object_types, env) {
 
   # Create new environment with these objects
   pkg_env <- new.env(parent = baseenv())
-  for(name in filtered_names) {
+  for (name in filtered_names) {
     assign(name, get(name, envir = env), envir = pkg_env)
   }
 

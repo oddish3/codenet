@@ -32,21 +32,63 @@ identify_dependencies <- function(objects) {
 
   for (obj_name in objects$names) {
     obj <- get(obj_name, envir = objects$env)
+    obj_type <- objects$types[obj_name]
 
     if (is.function(obj)) {
-      # For functions, look for function calls and data usage
-      deps <- find_function_dependencies(obj, objects)
-      if (length(deps) > 0) {
-        new_edges <- data.frame(
-          from = rep(obj_name, length(deps)),
-          to = deps
-        )
-        edges <- rbind(edges, new_edges)
+      # For functions, find both function calls and data/list usage
+      body_chr <- paste(deparse(body(obj)), collapse = "\n")
+
+      # Look for calls to other functions
+      for (other_name in objects$names[objects$types == "function"]) {
+        if (obj_name != other_name &&
+            grepl(paste0("\\b", other_name, "\\b"), body_chr)) {
+          edges <- rbind(edges, data.frame(from = obj_name, to = other_name))
+        }
+      }
+
+      # Look for data object usage
+      for (other_name in objects$names[objects$types %in% c("data.frame", "list")]) {
+        if (grepl(paste0("\\b", other_name, "\\b"), body_chr)) {
+          edges <- rbind(edges, data.frame(from = obj_name, to = other_name))
+        }
+      }
+
+    } else if (obj_type %in% c("data.frame", "list")) {
+      # For data objects, find which functions create or modify them
+      for (func_name in objects$names[objects$types == "function"]) {
+        func <- get(func_name, envir = objects$env)
+        body_chr <- paste(deparse(body(func)), collapse = "\n")
+
+        if (grepl(paste0("\\b", obj_name, "\\b"), body_chr)) {
+          edges <- rbind(edges, data.frame(from = func_name, to = obj_name))
+        }
       }
     }
   }
 
   return(unique(edges))
+}
+
+#' Find Object Dependencies
+#'
+#' @param obj Object to analyze
+#' @param objects List of available objects
+#' @return Character vector of dependency names
+#' @noRd
+find_object_dependencies <- function(obj, objects) {
+  if (is.function(obj)) {
+    body_chr <- paste(deparse(body(obj)), collapse = "\n")
+    deps <- character()
+
+    # Look for both function and data object usage
+    for (name in objects$names) {
+      if (grepl(paste0("\\b", name, "\\b"), body_chr)) {
+        deps <- c(deps, name)
+      }
+    }
+    return(unique(deps))
+  }
+  return(character())
 }
 
 #' Find Function Dependencies
